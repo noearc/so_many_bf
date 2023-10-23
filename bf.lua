@@ -1,16 +1,21 @@
+#! /usr/bin/lua
+
+-- problem with space?
+
+print("Write your bf code: \n")
+
 local program = io.read()
 local program_table = {}
-for i = 1, #program do
-    program_table[i] = program:sub(i, i)
-end
+local program_index = 1
 local tape = {0}
 local cell_index = 1
-
 local loop_table = {}
 local loop_stack = {}
 
 
-local ip = 1
+for i = 1, #program do
+    program_table[i] = program:sub(i, i)
+end
 
 for i = 1, #program_table do
   local instruction = program_table[i]
@@ -23,8 +28,8 @@ for i = 1, #program_table do
   end
 end
 
-while ip <= #program do
-  local instrunction  = program_table[ip]
+while program_index <= #program do
+  local instrunction  = program_table[program_index]
   if instrunction == '>' then
     cell_index = cell_index + 1
     if cell_index > #tape then
@@ -46,12 +51,12 @@ while ip <= #program do
     tape[cell_index] = string.byte(input)
   elseif instrunction == '[' then
     if tape[cell_index] == 0 then
-      ip = loop_table[ip]
+      program_index = loop_table[program_index]
     end
   elseif instrunction == ']' then
     if tape[cell_index] ~= 0 then
-      ip = loop_table[ip]
+      program_index = loop_table[program_index]
     end
   end
-  ip = ip + 1
+  program_index = program_index + 1
 end
