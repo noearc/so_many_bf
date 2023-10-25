@@ -8,28 +8,29 @@ program_ptr = 0
 
 while program_ptr <= program.length do
   char = program[program_ptr];
-  if char == '+'
+  case char
+  when '+'
     tape[tape_ptr] += 1;
-  elsif char == '-'
+  when '-'
     tape[tape_ptr] -= 1;
-  elsif char == '>'
+  when '>'
     tape_ptr += 1;
-  elsif char == '<'
+  when '<'
     tape_ptr -= 1;
-  elsif char == '.'
+  when '.'
     print tape[tape_ptr].chr;
-  elsif char == ','
+  when ','
     tape[tape_ptr] = STDIN.getc;
-  elsif char == '['
+  when '['
     if tape[tape_ptr] == 0
       while program[program_ptr] != ']'
-      program_ptr += 1;
+        program_ptr += 1;
       end
     end
-  elsif char == ']'
+  when ']'
     if tape[tape_ptr] != 0
       while program[program_ptr] != '['
-      program_ptr -= 1;
+        program_ptr -= 1;
       end
     end
   end
